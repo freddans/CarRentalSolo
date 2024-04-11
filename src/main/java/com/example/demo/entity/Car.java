@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,7 +14,7 @@ public class Car {
   private String manifacturer;
   private String model;
   private String regnr;
-  private boolean available; // om bokad
+  private Boolean available; // om bokad
 
   public Car() {
   }
@@ -58,11 +59,12 @@ public class Car {
     this.regnr = regnr;
   }
 
-  public boolean isAvailable() {
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  public Boolean getAvailable() {
     return available;
   }
 
-  public void setAvailable(boolean available) {
+  public void setAvailable(Boolean available) {
     this.available = available;
   }
 }

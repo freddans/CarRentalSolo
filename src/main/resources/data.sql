@@ -12,7 +12,11 @@ INSERT INTO customers (username, name, address, email, phone) VALUES
 INSERT INTO cars (dailyprice, manifacturer, model, regnr, available) VALUES
                                                                                          (150, 'Tesla', 'Model 3', 'ABC123', true),
                                                                                          (150, 'Volvo', 'S90', 'JHT534', true),
-                                                                                         (150, 'Toyota', 'Yaris', 'TAM967', false),
-                                                                                         (150, 'Audi', 'A7', 'VRR332', false),
-                                                                                         (150, 'Audi', 'TT', 'FEL312', false);
+                                                                                         (150, 'Toyota', 'Yaris', 'TAM967', true),
+                                                                                         (150, 'Audi', 'A7', 'VRR332', true),
+                                                                                         (150, 'Audi', 'TT', 'FEL312', true);
 
+-- INSERT INTO bookings (car, customer) VALUES
+--       (3, 3),
+--       (4, 4),
+--       (5, 5);

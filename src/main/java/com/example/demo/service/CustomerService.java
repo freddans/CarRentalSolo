@@ -39,47 +39,51 @@ public class CustomerService {
     // UPDATE
     // Update customer
     public Customer updateCustomer(Customer customerToBeUpdated) {
-        Optional<Customer> existingCustomer = customerRepository.findById(customerToBeUpdated.getId());
+        Optional<Customer> optionalCustomer = customerRepository.findById(customerToBeUpdated.getId());
 
         StringBuilder updateMessage = new StringBuilder();
 
-        if (existingCustomer.isPresent()) {
-            updateMessage.append("\nAdmin updated Customer with id: " + existingCustomer.get().getId() + "\n");
-            if (customerToBeUpdated.getUsername() != null && (!customerToBeUpdated.getUsername().isEmpty() || !customerToBeUpdated.getUsername().contains(existingCustomer.get().getName()))) {
-                existingCustomer.get().setUsername(customerToBeUpdated.getUsername());
-                updateMessage.append("Username changed to: " + existingCustomer.get().getUsername() + "\n");
+        if (optionalCustomer.isPresent()) {
+            Customer existingCustomer = optionalCustomer.get();
+
+            updateMessage.append("\nAdmin updated Customer with id: " + existingCustomer.getId() + "\n");
+            if (customerToBeUpdated.getUsername() != null && (!customerToBeUpdated.getUsername().isEmpty() || !customerToBeUpdated.getUsername().contains(existingCustomer.getName()))) {
+                existingCustomer.setUsername(customerToBeUpdated.getUsername());
+                updateMessage.append("Username changed to: " + existingCustomer.getUsername() + "\n");
             }
-            if (customerToBeUpdated.getName() != null && (!customerToBeUpdated.getName().isEmpty() || !customerToBeUpdated.getUsername().contains(existingCustomer.get().getName()))) {
-                existingCustomer.get().setName(customerToBeUpdated.getName());
-                updateMessage.append("Name changed to: " + existingCustomer.get().getName() + "\n");
+            if (customerToBeUpdated.getName() != null && (!customerToBeUpdated.getName().isEmpty() || !customerToBeUpdated.getUsername().contains(existingCustomer.getName()))) {
+                existingCustomer.setName(customerToBeUpdated.getName());
+                updateMessage.append("Name changed to: " + existingCustomer.getName() + "\n");
             }
-            if (customerToBeUpdated.getAddress() != null && (!customerToBeUpdated.getAddress().isEmpty() || !customerToBeUpdated.getAddress().contains(existingCustomer.get().getAddress()))) {
-                existingCustomer.get().setAddress(customerToBeUpdated.getAddress());
-                updateMessage.append("Address changed to: " + existingCustomer.get().getAddress() + "\n");
+            if (customerToBeUpdated.getAddress() != null && (!customerToBeUpdated.getAddress().isEmpty() || !customerToBeUpdated.getAddress().contains(existingCustomer.getAddress()))) {
+                existingCustomer.setAddress(customerToBeUpdated.getAddress());
+                updateMessage.append("Address changed to: " + existingCustomer.getAddress() + "\n");
             }
-            if (customerToBeUpdated.getEmail() != null && (!customerToBeUpdated.getEmail().isEmpty() || !customerToBeUpdated.getEmail().contains(existingCustomer.get().getEmail()))) {
-                existingCustomer.get().setEmail(customerToBeUpdated.getEmail());
-                updateMessage.append("Email changed to: " + existingCustomer.get().getEmail() + "\n");
+            if (customerToBeUpdated.getEmail() != null && (!customerToBeUpdated.getEmail().isEmpty() || !customerToBeUpdated.getEmail().contains(existingCustomer.getEmail()))) {
+                existingCustomer.setEmail(customerToBeUpdated.getEmail());
+                updateMessage.append("Email changed to: " + existingCustomer.getEmail() + "\n");
             }
-            if (customerToBeUpdated.getPhone() != null && (!customerToBeUpdated.getPhone().isEmpty() || !customerToBeUpdated.getPhone().contains(existingCustomer.get().getPhone()))) {
-                existingCustomer.get().setPhone(customerToBeUpdated.getPhone());
-                updateMessage.append("Phone number changed to: " + existingCustomer.get().getPhone() + "\n");
+            if (customerToBeUpdated.getPhone() != null && (!customerToBeUpdated.getPhone().isEmpty() || !customerToBeUpdated.getPhone().contains(existingCustomer.getPhone()))) {
+                existingCustomer.setPhone(customerToBeUpdated.getPhone());
+                updateMessage.append("Phone number changed to: " + existingCustomer.getPhone() + "\n");
             }
             logger.info(updateMessage);
+            customerRepository.save(existingCustomer);
         } else {
             logger.info("\nWARN: Admin tried to update Customer but nothing was updated on id: " + customerToBeUpdated.getId() + "\n");
         }
 
-        return existingCustomer.orElseThrow();
+        return optionalCustomer.orElseThrow();
     }
 
     // DELETE
     // Delete customer
     public String deleteCustomer(Customer customerToBeDeleted) {
-        Optional<Customer> theCustomer = customerRepository.findById(customerToBeDeleted.getId());
+        Optional<Customer> optionalCustomer = customerRepository.findById(customerToBeDeleted.getId());
 
-        if (theCustomer.isPresent()) {
-            customerRepository.delete(theCustomer.get());
+        if (optionalCustomer.isPresent()) {
+            Customer theCustomer = optionalCustomer.get();
+            customerRepository.delete(theCustomer);
             logger.info("\nAdmin deleted Customer with id: " + customerToBeDeleted.getId() + "\n");
             return "Deleted Customer with id: " + customerToBeDeleted.getId();
         } else {

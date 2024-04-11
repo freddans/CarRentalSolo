@@ -65,11 +65,11 @@ public class AdminController {
    return ResponseEntity.ok(customerService.updateCustomer(customerToBeUpdated));
   }
 
-  // TODO List all bookings
-  @GetMapping("/orders")
-  public void listAllBookings() {
-
-  }
+//  // TODO List all bookings
+//  @GetMapping("/orders")
+//  public void listAllBookings() {
+//
+//  }
 
   // DELETE
   // delete car
@@ -86,10 +86,10 @@ public class AdminController {
     return ResponseEntity.ok(customerService.deleteCustomer(customerToBeDeleted));
   }
 
-  // TODO delete booking
-  @DeleteMapping("/deleteorder")
-  public void deleteBooking() {
-    // TODO use @RequestBody for id
-  }
+//  // TODO delete booking
+//  @DeleteMapping("/deleteorder")
+//  public void deleteBooking() {
+//    // TODO use @RequestBody for id
+//  }
 
 }

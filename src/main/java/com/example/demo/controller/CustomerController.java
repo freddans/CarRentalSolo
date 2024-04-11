@@ -32,21 +32,21 @@ public class CustomerController {
     return ResponseEntity.ok(carService.getAllAvailableCars());
   }
 
-  // TODO Book a car POST
-  @PostMapping("/ordercar")
-  public void bookCar() {
-    // TODO using @RequestBody to get id since its sent inside the body.
-  }
+//  // TODO Book a car POST
+//  @PostMapping("/ordercar")
+//  public void bookCar() {
+//    // TODO using @RequestBody to get id since its sent inside the body.
+//  }
+//
+//  // TODO Cancel order
+//  @PutMapping("/cancelorder")
+//  public void cancelBooking() {
+//    // TODO using @RequestBody to get id since its sent inside the body.
+//  }
 
-  // TODO Cancel order
-  @PutMapping("/cancelorder")
-  public void cancelBooking() {
-    // TODO using @RequestBody to get id since its sent inside the body.
-  }
-
-  // TODO View former and and active bookings
-  @GetMapping("/myorders")
-  public void viewFormerAndActiveBookings() {
-
-  }
+//  // TODO View former and and active bookings
+//  @GetMapping("/myorders")
+//  public void viewFormerAndActiveBookings() {
+//
+//  }
 }
