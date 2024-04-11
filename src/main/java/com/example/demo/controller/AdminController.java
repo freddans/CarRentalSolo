@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.Car;
 import com.example.demo.entity.Customer;
+import com.example.demo.service.CarService;
 import com.example.demo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,65 +16,74 @@ import java.util.List;
 public class AdminController {
 
   private CustomerService customerService;
+  private CarService carService;
 
   @Autowired
-  public AdminController(CustomerService customerService) {
+  public AdminController(CustomerService customerService, CarService carService) {
     this.customerService = customerService;
+    this.carService = carService;
   }
 
+
+
+  // CREATE
+  // add car
+  @PostMapping("/addcar")
+  public ResponseEntity<Car> addCar(@RequestBody Car newCar) {
+    return ResponseEntity.ok(carService.addCar(newCar));
+  }
+
+  // add Customer
+  @PostMapping("/addcustomer")
+  public ResponseEntity<Customer> addCustomer(@RequestBody Customer newCustomer) {
+    return ResponseEntity.ok(customerService.addCustomer(newCustomer));
+  }
+
+  // READ
   // list to get all customers
-  // TODO add logging
   @GetMapping("/customers")
   public ResponseEntity<List<Customer>> getAllCustomers() {
     return ResponseEntity.ok(customerService.getAllCustomers());
   }
 
-  // TODO add car
-  @PostMapping("/addcar")
-  public void addCar() {
-
-  }
-
-  // TODO delete car
-  @DeleteMapping("/deletecar")
-  public void deleteCar() {
-    // TODO Use requestbody to get id
-  }
-
-  // TODO update car
-  @PutMapping("/updatecar")
-  public void updateCar() {
-    // TODO Use requestbody to get id
-  }
-
-  // TODO addCustomer
-  @PostMapping("/addcustomer")
-  public void addCustomer() {
-
-  }
-
-  // TODO update customer
-  @PutMapping("/updatecustomer")
-  public void updateCustomer() {
-   // TODO requestbody for ids
-  }
-
-  // TODO delete customer
-  @DeleteMapping("/deletecustomer")
-  public void deleteCustomer() {
-    // TODO use requestbody for id
-  }
-
   // List ALL cars (lista samtliga bilar)
   @GetMapping("/allcars")
-  public void listAllCars() {
+  public ResponseEntity<List<Car>> listAllCars() {
+    return ResponseEntity.ok(carService.getAllCars());
+  }
 
+  // UPDATE
+  // update car
+  @PutMapping("/updatecar")
+  public ResponseEntity<Car> updateCar(@RequestBody Car carToBeUpdated) {
+    return ResponseEntity.ok(carService.updateCar(carToBeUpdated));
+  }
+
+  // update customer
+  @PutMapping("/updatecustomer")
+  public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customerToBeUpdated) {
+   return ResponseEntity.ok(customerService.updateCustomer(customerToBeUpdated));
   }
 
   // TODO List all bookings
   @GetMapping("/orders")
   public void listAllBookings() {
 
+  }
+
+  // DELETE
+  // delete car
+  @DeleteMapping("/deletecar")
+  public ResponseEntity<String> deleteCar(@RequestBody Car carToBeDeleted) {
+    // TODO Use requestbody to get id
+    return ResponseEntity.ok(carService.deleteCar(carToBeDeleted));
+  }
+
+  // delete customer
+  @DeleteMapping("/deletecustomer")
+  public ResponseEntity<String> deleteCustomer(@RequestBody Customer customerToBeDeleted) {
+    // TODO use requestbody for id
+    return ResponseEntity.ok(customerService.deleteCustomer(customerToBeDeleted));
   }
 
   // TODO delete booking
