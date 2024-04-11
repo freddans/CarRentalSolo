@@ -28,7 +28,6 @@ public class BookingController {
     // TODO Book a car POST
     @PostMapping("/ordercar")
     public ResponseEntity<String> bookCar(@RequestBody Booking booking) {
-        // TODO using @RequestBody to get id since its sent inside the body.
         return ResponseEntity.ok(bookingService.bookCar(booking));
     }
 
