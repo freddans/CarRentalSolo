@@ -1,4 +1,4 @@
--- Lägg till 5 adresser
+-- Lägg till 5 kunder
 INSERT INTO customers (username, name, address, email, phone) VALUES
                                                     ('Freddan', 'Fredrik', 'Prästgårdsängen 8', 'flundell89@gmail.com', '+46708388404'),
                                                     ('Anders55', 'Anders', 'Andersgatan 55', 'anders@hotmail.com', '+46701112233'),
@@ -8,7 +8,7 @@ INSERT INTO customers (username, name, address, email, phone) VALUES
 
 
 
--- Lägg till 5 medlemmar
+-- Lägg till 5 bilar
 INSERT INTO cars (dailyprice, manifacturer, model, regnr, available) VALUES
                                                                                          (150, 'Tesla', 'Model 3', 'ABC123', true),
                                                                                          (150, 'Volvo', 'S90', 'JHT534', true),
@@ -16,6 +16,7 @@ INSERT INTO cars (dailyprice, manifacturer, model, regnr, available) VALUES
                                                                                          (150, 'Audi', 'A7', 'VRR332', true),
                                                                                          (150, 'Audi', 'TT', 'FEL312', true);
 
+-- Lägg till 3 orders
 -- INSERT INTO bookings (car, customer) VALUES
 --       (3, 3),
 --       (4, 4),
