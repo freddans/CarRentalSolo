@@ -57,40 +57,6 @@ public class BookingService {
 //        return "Error: Car or Customer do not exist with provided ID";
 //    }
 
-    @Transactional
-    public String bookCar(Booking bookingRequest) {
-        int carId = bookingRequest.getCarid();
-        int customerId = bookingRequest.getCustomerid();
-
-        // Retrieve car and customer entities from database
-        Optional<Car> optionalCar = carRepository.findById(carId);
-        Optional<Customer> optionalCustomer = customerRepository.findById(customerId);
-
-        if (optionalCar.isPresent() && optionalCustomer.isPresent()) {
-            Car car = optionalCar.get();
-            Customer customer = optionalCustomer.get();
-
-            // Check if car is available
-            if (car.getAvailable()) {
-                // Update car availability
-                car.setAvailable(false);
-
-                // Create new Booking entity
-                Booking booking = new Booking(car, customer);
-
-                // Save Booking to database
-                bookingRepository.save(booking);
-
-                // Return success message
-                return "Car booked successfully";
-            } else {
-                return "Error: Car is not available for booking";
-            }
-        } else {
-            return "Error: Car or Customer not found with provided IDs";
-        }
-    }
-
 public List<Booking> getFormerAndActiveBookings() {
     logger.info("\nClient getting Former and Current bookings\n");
     return bookings;

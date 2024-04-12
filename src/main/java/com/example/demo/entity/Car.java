@@ -59,7 +59,6 @@ public class Car {
     this.regnr = regnr;
   }
 
-  @JsonInclude(JsonInclude.Include.NON_NULL)
   public Boolean getAvailable() {
     return available;
   }

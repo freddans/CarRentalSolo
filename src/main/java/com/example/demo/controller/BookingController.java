@@ -31,8 +31,6 @@ public class BookingController {
         return ResponseEntity.ok(bookingService.bookCar(booking));
     }
 
-
-
     // ADMIN
     // TODO delete booking
     @DeleteMapping("/deleteorder")
