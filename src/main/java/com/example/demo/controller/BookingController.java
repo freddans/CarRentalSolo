@@ -25,10 +25,9 @@ public class BookingController {
 
     // CREATE
     // CUSTOMER
-    // TODO Book a car POST
     @PostMapping("/ordercar")
-    public ResponseEntity<String> bookCar(@RequestBody Booking booking) {
-        return ResponseEntity.ok(bookingService.bookCar(booking));
+    public ResponseEntity<String> bookCar(@RequestParam("carId") int carId, @RequestParam("customerId") int customerId) {
+        return ResponseEntity.ok(bookingService.bookCar(carId, customerId));
     }
 
     // ADMIN
@@ -49,8 +48,8 @@ public class BookingController {
     // CUSTOMER
     // TODO View former and and active bookings
     @GetMapping("/myorders")
-    public ResponseEntity<List<Booking>> viewFormerAndActiveBookings() {
-        return ResponseEntity.ok(bookingService.getFormerAndActiveBookings());
+    public ResponseEntity<List<Booking>> viewFormerAndActiveBookings(@RequestParam("customerId") int customerId) {
+        return ResponseEntity.ok(bookingService.getFormerAndActiveBookings2(customerId));
     }
 
 

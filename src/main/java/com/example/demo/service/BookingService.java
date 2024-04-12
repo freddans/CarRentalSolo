@@ -22,7 +22,6 @@ public class BookingService {
     private BookingRepository bookingRepository;
     private CarRepository carRepository;
     private CustomerRepository customerRepository;
-    private List<Booking> bookings = new ArrayList<>();
 
     @Autowired
     public BookingService(BookingRepository bookingRepository, CarRepository carRepository, CustomerRepository customerRepository) {
@@ -32,56 +31,68 @@ public class BookingService {
     }
 
     // Create
-//    public String bookCar(Car car, Customer customer) {
-//        Optional<Car> optionalCar = carRepository.findById(car.getId());
-//        Optional<Customer> optionalCustomer = customerRepository.findById(customer.getId());
-//
-//        if (optionalCar.isPresent() && optionalCustomer.isPresent()) {
-//            Car theCar = optionalCar.get();
-//            Customer theCustomer = optionalCustomer.get();
-//
-//            if (theCar.getAvailable()) {
-//
-//                theCar.setAvailable(false);
-//                Booking booking = new Booking(car, theCustomer);
-//
-//                bookings.add(booking);
-//                logger.info("\nBooking car " + theCar.getManifacturer() + " " + theCar.getModel() + " for customer " + theCustomer.getName() + "\n");
-//                return "Car booked";
-//            } else {
-//                logger.info("\nError: booking car. Car not available\n");
-//                return "Error: Car not available";
-//            }
-//        }
-//        logger.info("\nError: Customer tried to book a car where customer or car ID does not exist\n");
-//        return "Error: Car or Customer do not exist with provided ID";
-//    }
+    @Transactional
+    public String bookCar(int carId, int customerId) {
+        Optional<Car> optionalCar = carRepository.findById(carId);
+        Optional<Customer> optionalCustomer = customerRepository.findById(customerId);
 
-public List<Booking> getFormerAndActiveBookings() {
-    logger.info("\nClient getting Former and Current bookings\n");
-    return bookings;
-}
+        if (optionalCar.isPresent() && optionalCustomer.isPresent()) {
+            Car car = optionalCar.get();
+            Customer customer = optionalCustomer.get();
 
-// Delete booking
-public String deleteBooking(Booking bookingToBeDeleted) {
-    Optional<Booking> optionalBooking = bookingRepository.findById(bookingToBeDeleted.getId());
+            if (car.getAvailable()) { // Check if the car is available
+                Booking booking = new Booking(car, customer);
+                bookingRepository.save(booking);
 
-    if (optionalBooking.isPresent()) {
-        Booking theBooking = optionalBooking.get();
+                // Update car availability
+                car.setAvailable(false);
+                carRepository.save(car);
 
-        bookingRepository.delete(theBooking);
-        logger.info("\nAdmin deleted Booking with ID: " + bookingToBeDeleted.getId() + "\n");
-        return "Deleted Booking with id: " + bookingToBeDeleted.getId();
-    } else {
-        logger.warn("\nWARN: Admin tried to delete Booking with ID that does not exist. ID used: " + bookingToBeDeleted.getId() + "\n");
-        return "Booking could not be found with ID: " + bookingToBeDeleted.getId() + "\n";
+                logger.info("\nCustomer with ID: " + customerId + " booked Car with ID: " + carId + "\n");
+
+                return "Car booked successfully!";
+            } else {
+                logger.info("\nERROR: Customer with ID: " + customerId + " tried to book Car with ID: " + carId + " that is not available\n");
+                return "Car is not available for booking!";
+            }
+        } else {
+            logger.info("\nERROR: Car or Customer not found\n");
+            return "Car or customer not found!";
+        }
     }
-}
 
-public List<Booking> getAllBookings() {
-    logger.info("\nAdmin getting all orders\n");
-    return bookingRepository.findAll();
-}
+    public List<Booking> getFormerAndActiveBookings2(int customerId) {
 
+        List<Booking> personalBookings = new ArrayList<>();
 
+        for (Booking booking : bookingRepository.findAll()) {
+            if (booking.getCustomer().getId() == customerId) {
+                personalBookings.add(booking);
+            }
+        }
+
+        logger.info("\nClient getting Former and Current bookings\n");
+        return personalBookings;
+    }
+
+    // Delete booking
+    public String deleteBooking(Booking bookingToBeDeleted) {
+        Optional<Booking> optionalBooking = bookingRepository.findById(bookingToBeDeleted.getId());
+
+        if (optionalBooking.isPresent()) {
+            Booking theBooking = optionalBooking.get();
+
+            bookingRepository.delete(theBooking);
+            logger.info("\nAdmin deleted Booking with ID: " + bookingToBeDeleted.getId() + "\n");
+            return "Deleted Booking with id: " + bookingToBeDeleted.getId();
+        } else {
+            logger.warn("\nWARN: Admin tried to delete Booking with ID that does not exist. ID used: " + bookingToBeDeleted.getId() + "\n");
+            return "Booking could not be found with ID: " + bookingToBeDeleted.getId() + "\n";
+        }
+    }
+
+    public List<Booking> getAllBookings() {
+        logger.info("\nAdmin getting all orders\n");
+        return bookingRepository.findAll();
+    }
 }
