@@ -95,4 +95,35 @@ public class BookingService {
         logger.info("\nAdmin getting all orders\n");
         return bookingRepository.findAll();
     }
+
+    public Booking cancelBooking(Booking bookingToBeCanceled) {
+
+        // get the booking
+        Optional<Booking> booking = bookingRepository.findById(bookingToBeCanceled.getId());
+
+
+        if (booking.isPresent()) {
+            Booking theBooking = booking.get();
+
+            // set due date:
+            theBooking.setDueDate(new Date());
+
+            // set car as available
+            Car car = theBooking.getCar();
+            car.setAvailable(true);
+
+            // Get customer:
+            Customer customer = theBooking.getCustomer();
+
+            // Log it
+            logger.info("\nCustomer with username: " + customer.getUsername() + " canceled their rental of car reg nr: " + car.getRegnr() + "\n");
+
+            // save booking
+            return bookingRepository.save(theBooking);
+        } else {
+            logger.warn("ERROR: Booking with id: " + bookingToBeCanceled.getId() + " does not exist");
+            return booking.orElseThrow();
+        }
+
+    }
 }

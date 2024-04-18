@@ -1,0 +1,48 @@
+2024-04-18 18:17:51,018 * INFO * com.example.demo.service.CarService * getAllAvailableCars * 
+Client gets list of all available cars 
+
+2024-04-18 18:17:59,021 * INFO * com.example.demo.service.CustomerService * getAllCustomers * 
+Admin gets list of all customers 
+
+2024-04-18 18:18:12,738 * INFO * com.example.demo.service.BookingService * bookCar * 
+Customer with ID: 2 booked Car with ID: 2
+
+2024-04-18 18:18:18,564 * INFO * com.example.demo.service.BookingService * getAllBookings * 
+Admin getting all orders
+
+2024-04-18 18:18:26,761 * INFO * com.example.demo.service.BookingService * getFormerAndActiveBookings2 * 
+Client getting Former and Current bookings
+
+2024-04-18 18:18:29,193 * INFO * com.example.demo.service.BookingService * getFormerAndActiveBookings2 * 
+Client getting Former and Current bookings
+
+2024-04-18 18:18:34,794 * INFO * com.example.demo.service.BookingService * cancelBooking * 
+Customer with username: Anders55 canceled their rental of car reg nr: JHT534
+
+2024-04-18 18:24:08,067 * INFO * com.example.demo.service.BookingService * bookCar * 
+Customer with ID: 2 booked Car with ID: 2
+
+2024-04-18 18:24:11,412 * INFO * com.example.demo.service.BookingService * getAllBookings * 
+Admin getting all orders
+
+2024-04-18 18:24:14,642 * INFO * com.example.demo.service.BookingService * getFormerAndActiveBookings2 * 
+Client getting Former and Current bookings
+
+2024-04-18 18:24:23,054 * INFO * com.example.demo.service.BookingService * cancelBooking * 
+Customer with username: Anders55 canceled their rental of car reg nr: JHT534
+
+2024-04-18 18:24:28,036 * INFO * com.example.demo.service.BookingService * getFormerAndActiveBookings2 * 
+Client getting Former and Current bookings
+
+2024-04-18 18:24:39,371 * INFO * com.example.demo.service.BookingService * getAllBookings * 
+Admin getting all orders
+
+2024-04-18 18:24:53,387 * INFO * com.example.demo.service.CarService * getAllAvailableCars * 
+Client gets list of all available cars 
+
+2024-04-18 18:25:03,121 * INFO * com.example.demo.service.CarService * getAllAvailableCars * 
+Client gets list of all available cars 
+
+2024-04-18 18:25:06,738 * INFO * com.example.demo.service.CarService * getAllAvailableCars * 
+Client gets list of all available cars 
+

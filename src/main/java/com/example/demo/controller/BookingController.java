@@ -56,7 +56,7 @@ public class BookingController {
 
     // TODO Cancel order
     @PutMapping("/cancelorder")
-    public void cancelBooking() {
-        // TODO using @RequestBody to get id since its sent inside the body.
+    public ResponseEntity<Booking> cancelBooking(@RequestBody Booking booking) {
+        return ResponseEntity.ok(bookingService.cancelBooking(booking));
     }
 }

@@ -11,7 +11,12 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private Date date;
+
+    @Column(name = "hired", nullable = false)
+    private Date dateOfHire;
+
+    @Column(name = "duedate", nullable = true)
+    private Date dueDate;
 
     @OneToOne
     @JoinColumn(name = "cars_id")
@@ -25,7 +30,7 @@ public class Booking {
     }
 
   public Booking(Car car, Customer customer) {
-    this.date = new Date();
+    this.dateOfHire = new Date();
     this.car = car;
     this.customer = customer;
   }
@@ -38,12 +43,12 @@ public class Booking {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getDateOfHire() {
+        return dateOfHire;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDateOfHire(Date date) {
+        this.dateOfHire = date;
     }
 
     public Car getCar() {
@@ -62,4 +67,11 @@ public class Booking {
         this.customer = customer;
     }
 
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
 }
